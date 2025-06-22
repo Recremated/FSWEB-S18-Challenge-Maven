@@ -43,7 +43,7 @@ public class CardController {
         return cardRepository.save(card);
     }
 
-    @PutMapping
+    @PutMapping({"/", ""}) 
     public Card updateCard(@RequestBody Card card) {
         return cardRepository.update(card);
     }
