@@ -7,7 +7,7 @@ import com.workintech.fswebs18challengemaven.entity.Color;
 import com.workintech.fswebs18challengemaven.entity.Type;
 import com.workintech.fswebs18challengemaven.exceptions.CardException;
 import com.workintech.fswebs18challengemaven.exceptions.GlobalExceptionHandler;
-import com.workintech.fswebs18challengemaven.repository.CardRepository;
+import com.workintech.fswebs18challengemaven.dao.CardRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -9,15 +9,24 @@ import org.springframework.web.bind.annotation.*;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(value = {CardException.class})
+    public ResponseEntity<CardErrorResponse> handleCardException(CardException ex) {
+        log.error("Card exception: {}", ex.getMessage());
+        CardErrorResponse errorResponse = new CardErrorResponse(ex.getMessage());
+        return new ResponseEntity<>(errorResponse, ex.getHttpStatus());
+    }
+
     @ExceptionHandler(value = {IllegalArgumentException.class})
-    public ResponseEntity<String> handleIllegalArgument(IllegalArgumentException ex) {
+    public ResponseEntity<CardErrorResponse> handleIllegalArgument(IllegalArgumentException ex) {
         log.error("Validation failed: {}", ex.getMessage());
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        CardErrorResponse errorResponse = new CardErrorResponse(ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = {RuntimeException.class})
-    public ResponseEntity<String> handleRuntime(RuntimeException ex) {
+    public ResponseEntity<CardErrorResponse> handleRuntime(RuntimeException ex) {
         log.error("Application error: {}", ex.getMessage());
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        CardErrorResponse errorResponse = new CardErrorResponse(ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

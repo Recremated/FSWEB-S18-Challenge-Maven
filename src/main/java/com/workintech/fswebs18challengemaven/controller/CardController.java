@@ -1,20 +1,20 @@
 package com.workintech.fswebs18challengemaven.controller;
-import com.workintech.fswebs18challengemaven.dao.CardRepositoryImpl;
-import com.workintech.fswebs18challengemaven.model.Card;
-import com.workintech.fswebs18challengemaven.util.CardValidation;
+
+import com.workintech.fswebs18challengemaven.entity.Card;
+import com.workintech.fswebs18challengemaven.dao.CardRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/workintech/cards")
+@RequestMapping("/cards")
 @Slf4j
 public class CardController {
 
-    private final CardRepositoryImpl cardRepository;
+    private final CardRepository cardRepository;
 
-    public CardController(CardRepositoryImpl cardRepository) {
+    public CardController(CardRepository cardRepository) {
         this.cardRepository = cardRepository;
     }
 
@@ -40,18 +40,16 @@ public class CardController {
 
     @PostMapping
     public Card saveCard(@RequestBody Card card) {
-        CardValidation.validate(card);
         return cardRepository.save(card);
     }
 
     @PutMapping
     public Card updateCard(@RequestBody Card card) {
-        CardValidation.validate(card);
         return cardRepository.update(card);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCard(@PathVariable Long id) {
-        cardRepository.remove(id);
+    public Card deleteCard(@PathVariable Long id) {
+        return cardRepository.remove(id);
     }
 }
